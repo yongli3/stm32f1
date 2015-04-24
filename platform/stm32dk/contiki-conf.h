@@ -3,8 +3,22 @@
 
 #include "platform-conf.h"
 
-// The length of the printf buffer in RAM (Can be changed here)
-#define DEBUG_BUFFER_LEN 10000
+#define CCIF
+#define CLIF
+
+// Types for clocks and uip_stats
+typedef uint16_t clock_time_t;
+
+typedef uint8_t   u8_t;
+typedef uint16_t u16_t;
+typedef uint32_t u32_t;
+typedef int32_t s32_t;
+typedef unsigned short uip_stats_t;
+
+// rtimer相关定义，实际和rtimer默认值设置相似
+typedef uint16_t rtimer_clock_t;
+#define RTIMER_CLOCK_LT(a,b)     ((int16_t)((a)-(b)) < 0)
+
 
 // The rate of the system clock (Can be changed here)
 #define CLOCK_CONF_SECOND 1000
