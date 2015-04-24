@@ -2034,6 +2034,9 @@
         <file>
           <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\stm32f10x_it.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\uart-debug.c</name>
+        </file>
       </group>
     </group>
   </group>

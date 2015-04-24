@@ -1,5 +1,5 @@
-#ifndef PLATFORM_CONF_H_
-#define PLATFORM_CONF_H_
+#ifndef __PLATFORM_CONF_H__
+#define __PLATFORM_CONF_H__
 
 #include "stm32f10x.h"
 #include <stdint.h>
@@ -23,7 +23,7 @@
 #define CLIF
 
 // Types for clocks and uip_stats
-typedef unsigned long clock_time_t;
+typedef uint16_t clock_time_t;
 //typedef uint64_t clock_time_t;
 
 typedef uint8_t   u8_t;
@@ -33,7 +33,7 @@ typedef int32_t s32_t;
 typedef unsigned short uip_stats_t;
 
 #define ENERGEST_TOTAL_IS_RTIMER_T
-typedef uint64_t rtimer_clock_t;
+typedef uint16_t rtimer_clock_t;
 #define RTIMER_CLOCK_LT(a,b)     ((signed short)((a)-(b)) < 0)
 
 // the low-level radio driver

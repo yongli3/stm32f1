@@ -52,7 +52,7 @@ rt_callback(struct rtimer *t, void *ptr)
 {
   rt_now = RTIMER_NOW();
   ct = clock_time();
-  printf("Task called at %llu (clock = %lu)\n", rt_now, ct);
+  printf("Task called at    %5u\t\t(clock = %5u)\r\n", rt_now, ct);
 }
 #endif
 /*---------------------------------------------------------------------------*/
@@ -61,7 +61,7 @@ PROCESS_THREAD(clock_test_process, ev, data)
 
   PROCESS_BEGIN();
 
-  etimer_set(&et, 2 * CLOCK_SECOND);
+  etimer_set(&et, 2*CLOCK_SECOND);
 
   PROCESS_YIELD();
 
@@ -80,23 +80,24 @@ PROCESS_THREAD(clock_test_process, ev, data)
 #endif
 
 #if TEST_RTIMER
-  printf("Rtimer Test, 1 sec (%lu rtimer ticks):\r\n", RTIMER_SECOND);
+  printf("Rtimer Test, 1 sec (%u rtimer ticks):\r\n", RTIMER_SECOND);
   i = 0;
-  while (i < 5)
+  while (i < 100)
   {
-    etimer_set(&et, 2 * CLOCK_SECOND);
-    printf("=======================\r\n");
-    ct = clock_time();
-    rt_now = RTIMER_NOW();
-    rt_for = rt_now + RTIMER_SECOND;
-    printf("Now = %llu(clock = %lu)    For=%llu\n", rt_now, ct, rt_for);
-    if(rtimer_set(&rt, rt_for, 1,
-              (void (*)(struct rtimer *, void *))rt_callback, NULL) != RTIMER_OK) {
-      printf("Error setting\r\n");
-    }
-
-    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-    i++;
+      etimer_set(&et, 2 * CLOCK_SECOND);
+      printf("=======================\r\n");
+      ct = clock_time();
+      rt_now = RTIMER_NOW();
+      rt_for = rt_now + RTIMER_SECOND;
+      printf("Now = %5u For = %5u\t\t(clock = %5u)\r\n", rt_now, rt_for, ct);
+      
+      if(rtimer_set(&rt, rt_for, 1,
+                    (void (*)(struct rtimer *, void *))rt_callback, NULL) != RTIMER_OK) {
+                        printf("Error setting\r\n");
+                    }
+      
+      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+      i++;
   }
 #endif
 

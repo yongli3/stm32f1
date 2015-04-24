@@ -9,9 +9,6 @@
 // The rate of the system clock (Can be changed here)
 #define CLOCK_CONF_SECOND 1000
 
-// The rate of the RTIMER (can be changed here)
-#define RTIMER_ARCH_SECOND 20000
-
 #ifndef NETSTACK_CONF_MAC
 /* #define NETSTACK_CONF_MAC     csma_driver */
 #define NETSTACK_CONF_MAC     nullmac_driver

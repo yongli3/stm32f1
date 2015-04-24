@@ -12,7 +12,7 @@
 #include "contiki-conf.h"
 
 #ifndef RTIMER_ARCH_SECOND
-#define RTIMER_ARCH_SECOND 100000
+#define RTIMER_ARCH_SECOND  32000
 #endif
 
 // Functions
