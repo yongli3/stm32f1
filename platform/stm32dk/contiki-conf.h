@@ -19,9 +19,8 @@ typedef unsigned short uip_stats_t;
 typedef uint16_t rtimer_clock_t;
 #define RTIMER_CLOCK_LT(a,b)     ((int16_t)((a)-(b)) < 0)
 
-
-// The rate of the system clock (Can be changed here)
-#define CLOCK_CONF_SECOND 1000
+// The rate of the system clock
+#define CLOCK_CONF_SECOND       1000
 
 #ifndef NETSTACK_CONF_MAC
 /* #define NETSTACK_CONF_MAC     csma_driver */

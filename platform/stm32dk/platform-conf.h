@@ -20,8 +20,6 @@
 //#endif
 
 
-
-
 #define ENERGEST_TOTAL_IS_RTIMER_T
 
 

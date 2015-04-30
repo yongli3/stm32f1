@@ -41,7 +41,7 @@ rtimer_clock_t rt_now, rt_for;
 static clock_time_t ct;
 #endif
 
-static uint8_t i;
+static uint32_t i;
 /*---------------------------------------------------------------------------*/
 PROCESS(clock_test_process, "Clock test process");
 AUTOSTART_PROCESSES(&clock_test_process);
@@ -82,7 +82,7 @@ PROCESS_THREAD(clock_test_process, ev, data)
 #if TEST_RTIMER
   printf("Rtimer Test, 1 sec (%u rtimer ticks):\r\n", RTIMER_SECOND);
   i = 0;
-  while (i < 100)
+  while (i < 30000)
   {
       etimer_set(&et, 2 * CLOCK_SECOND);
       printf("=======================\r\n");
@@ -104,7 +104,7 @@ PROCESS_THREAD(clock_test_process, ev, data)
 #if TEST_ETIMER
   printf("Clock tick and etimer test, 1 sec (%u clock ticks):\r\n", CLOCK_SECOND);
   i = 0;
-  while (i < 10) 
+  while (i < 30000) 
   {
       etimer_set(&et, CLOCK_SECOND);
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));

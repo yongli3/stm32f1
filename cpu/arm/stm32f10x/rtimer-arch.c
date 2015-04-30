@@ -11,16 +11,6 @@
 #define PRINTF(...)
 #endif
 
-void rtimer_arch_comp_isr(void) 
-{
-	TIM_ITConfig(TIM2, TIM_IT_CC1, DISABLE); // Disable the next compare interrupt
-
-	PRINTF("\r\nCompare event %4x\r\n", (unsigned int)TIM2->CNT);
-	ENERGEST_ON(ENERGEST_TYPE_IRQ);
-	rtimer_run_next();
-	ENERGEST_OFF(ENERGEST_TYPE_IRQ);
-}
-
 void rtimer_arch_init(void) 
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
@@ -80,11 +70,6 @@ void rtimer_arch_schedule(rtimer_clock_t t)
 
 void TIM2_IRQHandler(void) 
 {
-//	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET) 
-//    {   // Overflow event. 
-//		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
-//		//rtimer_arch_ovf_isr();
-//	} 
     if (TIM_GetITStatus(TIM2, TIM_IT_CC1) != RESET) 
     {
 		TIM_ClearITPendingBit(TIM2, TIM_IT_CC1);
