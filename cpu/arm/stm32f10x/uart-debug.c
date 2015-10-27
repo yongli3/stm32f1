@@ -8,15 +8,15 @@ void debug_init(void)
     USART_InitTypeDef USART_InitStructure;
     GPIO_InitTypeDef GPIO_InitStructure;
     
-    //使能GPIOA时钟
+    // 使能GPIOA时钟
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_USART1, ENABLE);
     
-    //PA9 TX1 复用推挽输出
+    // PA9 TX1 复用推挽输出
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
-    //PA10 RX1 浮动输入
+    // PA10 RX1 浮动输入
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;    
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;

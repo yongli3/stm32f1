@@ -1,13 +1,13 @@
 /**
- * \file
- *         Tests related to clocks and timers
- *         This is based on clock_test.c from the original sensinode port
- *
- * \author
- *         Zach Shelby <zach@sensinode.com> (Original)
- *         George Oikonomou - <oikonomou@users.sourceforge.net> (rtimer code)
- *
- */
+* \file
+*         Tests related to clocks and timers
+*         This is based on clock_test.c from the original sensinode port
+*
+* \author
+*         Zach Shelby <zach@sensinode.com> (Original)
+*         George Oikonomou - <oikonomou@users.sourceforge.net> (rtimer code)
+*
+*/
 
 #include "contiki.h"
 #include "sys/clock.h"
@@ -50,91 +50,92 @@ AUTOSTART_PROCESSES(&clock_test_process);
 void
 rt_callback(struct rtimer *t, void *ptr)
 {
-  rt_now = RTIMER_NOW();
-  ct = clock_time();
-  printf("Task called at    %5u\t\t(clock = %5u)\r\n", rt_now, ct);
+    rt_now = RTIMER_NOW();
+    ct = clock_time();
+    printf("Task called at    %5u\t\t(clock = %5u)\r\n", rt_now, ct);
 }
 #endif
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(clock_test_process, ev, data)
 {
-
-  PROCESS_BEGIN();
-
-  etimer_set(&et, 2*CLOCK_SECOND);
-
-  PROCESS_YIELD();
-
+    
+    PROCESS_BEGIN();
+    
+    etimer_set(&et, 2*CLOCK_SECOND);
+    
+    PROCESS_YIELD();
+    
 #if TEST_CLOCK_DELAY_USEC
-  printf("clock_delay_usec test, (10,000 x i) usec:\r\n");
-  i = 1;
-  while(i < 7) {
-    start_count = RTIMER_NOW();
-    clock_delay_usec(10000 * i);
-    end_count = RTIMER_NOW();
-    diff = end_count - start_count;
-    printf("Requested: %lu usec, Real: %llu rtimer ticks = ~%ld us\r\n",
-        10000 * i, diff, diff * 64);
-    i++;
-  }
+    printf("clock_delay_usec test, (10,000 x i) usec:\r\n");
+    i = 1;
+    while (i < 7) 
+    {
+        start_count = RTIMER_NOW();
+        clock_delay_usec(10000 * i);
+        end_count = RTIMER_NOW();
+        diff = end_count - start_count;
+        printf("Requested: %lu usec, Real: %llu rtimer ticks = ~%ld us\r\n",
+               10000 * i, diff, diff * 64);
+        i++;
+    }
 #endif
-
+    
 #if TEST_RTIMER
-  printf("Rtimer Test, 1 sec (%u rtimer ticks):\r\n", RTIMER_SECOND);
-  i = 0;
-  while (i < 30000)
-  {
-      etimer_set(&et, 2 * CLOCK_SECOND);
-      printf("=======================\r\n");
-      ct = clock_time();
-      rt_now = RTIMER_NOW();
-      rt_for = rt_now + RTIMER_SECOND;
-      printf("Now = %5u For = %5u\t\t(clock = %5u)\r\n", rt_now, rt_for, ct);
-      
-      if(rtimer_set(&rt, rt_for, 1,
-                    (void (*)(struct rtimer *, void *))rt_callback, NULL) != RTIMER_OK) {
-                        printf("Error setting\r\n");
-                    }
-      
-      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-      i++;
-  }
+    printf("Rtimer Test, 1 sec (%u rtimer ticks):\r\n", RTIMER_SECOND);
+    i = 0;
+    while (i < 30000)
+    {
+        etimer_set(&et, 2 * CLOCK_SECOND);
+        printf("=======================\r\n");
+        ct = clock_time();
+        rt_now = RTIMER_NOW();
+        rt_for = rt_now + RTIMER_SECOND;
+        printf("Now = %5u For = %5u\t\t(clock = %5u)\r\n", rt_now, rt_for, ct);
+        
+        if(rtimer_set(&rt, rt_for, 1,
+                      (void (*)(struct rtimer *, void *))rt_callback, NULL) != RTIMER_OK) {
+                          printf("Error setting\r\n");
+                      }
+        
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+        i++;
+    }
 #endif
-
+    
 #if TEST_ETIMER
-  printf("Clock tick and etimer test, 1 sec (%u clock ticks):\r\n", CLOCK_SECOND);
-  i = 0;
-  while (i < 30000) 
-  {
-      etimer_set(&et, CLOCK_SECOND);
-      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-      etimer_reset(&et);
-      
-      count = clock_time();
-      printf("%u ticks\n", count);
-      
-      i++;
-  }
+    printf("Clock tick and etimer test, 1 sec (%u clock ticks):\r\n", CLOCK_SECOND);
+    i = 0;
+    while (i < 30000) 
+    {
+        etimer_set(&et, CLOCK_SECOND);
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+        etimer_reset(&et);
+        
+        count = clock_time();
+        printf("%u ticks\n", count);
+        
+        i++;
+    }
 #endif
-
+    
 #if TEST_CLOCK_SECONDS
-  printf("Clock seconds test (5s):\n");
-  i = 0;
-  while(i < 10) {
-    etimer_set(&et, 5 * CLOCK_SECOND);
-    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-    etimer_reset(&et);
-
-    sec = clock_seconds();
-    printf("%lu seconds\n", sec);
-
-    leds_toggle(LEDS_GREEN);
-    i++;
-  }
+    printf("Clock seconds test (5s):\n");
+    i = 0;
+    while(i < 10) {
+        etimer_set(&et, 5 * CLOCK_SECOND);
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+        etimer_reset(&et);
+        
+        sec = clock_seconds();
+        printf("%lu seconds\n", sec);
+        
+        leds_toggle(LEDS_GREEN);
+        i++;
+    }
 #endif
-
-  printf("Done!\n");
-
-  PROCESS_END();
+    
+    printf("Done!\n");
+    
+    PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/

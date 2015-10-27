@@ -1,4 +1,4 @@
-// Platform specific includes
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -7,12 +7,11 @@
 
 #include "stm32f10x.h"
 
-// Contiki includes
 #include "contiki.h"
 
 #include "sys/autostart.h"
 
-// Private functions
+
 #include "uart-debug.h"
 static void platform_init();
 
