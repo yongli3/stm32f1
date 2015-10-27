@@ -6,7 +6,6 @@
  */
 
 #include "contiki.h"
-#include "dev/leds.h"
 #include <stdio.h>
 
 PROCESS(hello_world_process, "Hello world process");

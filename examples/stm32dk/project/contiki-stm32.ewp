@@ -4716,6 +4716,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\sys\compower.c</name>
+        <excluded>
+          <configuration>hello-world</configuration>
+        </excluded>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\sys\ctimer.c</name>
@@ -4882,6 +4885,9 @@
     </group>
     <group>
       <name>process-post-test</name>
+      <excluded>
+        <configuration>hello-world</configuration>
+      </excluded>
       <file>
         <name>$PROJ_DIR$\..\process-post\process-post-test.c</name>
       </file>
