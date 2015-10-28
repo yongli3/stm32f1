@@ -47,7 +47,7 @@ PROCESS_THREAD(receive_process, ev, data)
 
     for (;;) 
     {
-        // 等待定时器事件
+        // 等待消息
         PROCESS_WAIT_EVENT_UNTIL(ev == event_data_ready);
         
         printf("%d\r\n", *(int *)data);
