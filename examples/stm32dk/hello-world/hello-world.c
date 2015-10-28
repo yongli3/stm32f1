@@ -1,10 +1,3 @@
-/**
- * \file
- *         A very simple test application for the stm32_bv motes
- * \author
- *         Benjamin Vedder
- */
-
 #include "contiki.h"
 #include <stdio.h>
 

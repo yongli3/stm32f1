@@ -30,8 +30,20 @@ void debug_init(void)
     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
     USART_Init(USART1, &USART_InitStructure);
     
-    //使能USART1
+    // 使能USART1
     USART_Cmd(USART1, ENABLE);
+    
+    // 使能USART1发送中断和接收中断，并设置优先级
+    NVIC_InitTypeDef NVIC_InitStructure;
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
+    // 设定USART1 中断优先级
+    NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+    // 使能接收中断
+    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE); 
 }
 
 int fputc(int ch, FILE * f)
