@@ -34,7 +34,7 @@ void USART1_IRQHandler(void)
         // 发送时间，参数为counter
         temp = USART_ReceiveData(USART1);
         counter++;
-        printf("%d\r\n",counter);
-        // process_post(&receive_process, event_data_ready, (void*)&counter);        
+        /// printf("%d\r\n",counter);
+        process_post(&receive_process, event_data_ready, (void*)&counter);        
     }
 }
