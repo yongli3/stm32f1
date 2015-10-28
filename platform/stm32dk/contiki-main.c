@@ -6,11 +6,8 @@
 #include <math.h>
 
 #include "stm32f10x.h"
-
 #include "contiki.h"
-
 #include "sys/autostart.h"
-
 
 #include "uart-debug.h"
 static void platform_init();
@@ -27,7 +24,7 @@ int main()
 
 	autostart_start(autostart_processes);
 
-	for(;;) 
+	for (;;) 
     {
 		do 
         {

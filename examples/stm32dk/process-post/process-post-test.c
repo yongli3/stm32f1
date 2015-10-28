@@ -5,15 +5,15 @@
  *         Benjamin Vedder
  */
 
+
+
 #include "contiki.h"
-#include "dev/leds.h"
 #include <stdio.h>
 
 PROCESS(receive_process, "Receive Process");
 PROCESS(send_process, "Send Process");
 
 AUTOSTART_PROCESSES(&receive_process, &send_process);
-// AUTOSTART_PROCESSES();
 
 static process_event_t event_data_ready;
 
