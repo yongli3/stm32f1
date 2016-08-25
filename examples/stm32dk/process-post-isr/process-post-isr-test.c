@@ -38,3 +38,27 @@ void USART1_IRQHandler(void)
         process_post(&receive_process, event_data_ready, (void*)&counter);        
     }
 }
+
+void USART2_IRQHandler(void)
+{
+    static unsigned char led = 1;
+    uint8_t temp = 0;
+    if (USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
+    {
+        temp = USART_ReceiveData(USART2);
+        printf("%x\r\n", temp);
+
+        if (0x31 == temp) {
+            led = !led;
+            if (led) // LED ON
+               GPIO_WriteBit(GPIOA, GPIO_Pin_8, Bit_RESET);
+            else  // LED OFF
+               GPIO_WriteBit(GPIOA, GPIO_Pin_8, Bit_SET);
+        }
+        if (0x30 == temp) {    
+            USART_SendData(USART2, led?'1':'0');
+            while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET );
+        }
+        //process_post(&receive_process, event_data_ready, (void*)&counter);        
+    }
+}

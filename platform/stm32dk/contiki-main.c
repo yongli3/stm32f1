@@ -16,7 +16,11 @@ int main()
 {
 	platform_init();
 	printf("Hello Contiki\r\n");
-	
+
+    // LED ON
+    GPIO_ResetBits(GPIOA,GPIO_Pin_8);
+    GPIO_ResetBits(GPIOD,GPIO_Pin_2);
+
 	process_init();
 	process_start(&etimer_process, NULL);
 
@@ -38,6 +42,8 @@ int main()
 static void platform_init() 
 {
 	debug_init();
+    uart2_init();
+    led_init();
     clock_init();
 	rtimer_init();
 }

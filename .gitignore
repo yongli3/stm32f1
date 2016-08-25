@@ -1,0 +1,6 @@
+*.o
+*.bin
+examples/stm32dk/project/contiki-stm32.dep
+examples/stm32dk/project/contiki-stm32.ewt
+examples/stm32dk/project/hello-world/
+examples/stm32dk/project/settings/
