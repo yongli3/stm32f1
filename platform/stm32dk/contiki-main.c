@@ -5,6 +5,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "contiki-conf.h"
 #include "core/dev/serial-line.h"
 #include "dev/cc2520/cc2520.h"
 #include "net/ipv6/uip-ds6.h"
@@ -34,19 +35,15 @@ int main()
 	process_start(&etimer_process, NULL);
 
 
+    // Add shell commands
     uart1_input_handler = serial_line_input_byte;
-
     serial_line_init();
-
-
-
-
-
-
-
-
-
     serial_shell_init();
+    shell_ps_init();
+    shell_ping_init();
+    shell_time_init();
+    //shell_blink_init();
+    //shell_vars_init();
 
 	ctimer_init();
 

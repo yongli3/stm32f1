@@ -146,7 +146,7 @@ typedef uint16_t rtimer_clock_t;
 
 #define UIP_CONF_ROUTER                 1
 #ifndef UIP_CONF_IPV6_RPL
-#define UIP_CONF_IPV6_RPL               1
+#define UIP_CONF_IPV6_RPL               0
 #endif /* UIP_CONF_IPV6_RPL */
 
 /* configure number of neighbors and routes */
@@ -192,6 +192,9 @@ typedef uint16_t rtimer_clock_t;
 #else /* WITH_UIP6 */
 #define UIP_CONF_IP_FORWARD      1
 #define UIP_CONF_BUFFER_SIZE     1000
+#ifndef UIP_CONF_IPV6_RPL
+#define UIP_CONF_IPV6_RPL               0
+#endif /* UIP_CONF_IPV6_RPL */
 #endif /* WITH_UIP6 */
 
 #define UIP_CONF_ICMP_DEST_UNREACH 1
@@ -209,7 +212,7 @@ typedef uint16_t rtimer_clock_t;
 #define UIP_CONF_UDP_CONNS       12
 #define UIP_CONF_FWCACHE_SIZE    30
 #define UIP_CONF_BROADCAST       1
-#define UIP_ARCH_IPCHKSUM        1
+//#define UIP_ARCH_IPCHKSUM        1
 #define UIP_CONF_UDP             1
 #define UIP_CONF_UDP_CHECKSUMS   1
 #define UIP_CONF_PINGADDRCONF    0

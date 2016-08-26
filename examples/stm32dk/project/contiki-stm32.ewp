@@ -187,7 +187,7 @@
         </option>
         <option>
           <name>CCPreprocFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCPreprocComments</name>
@@ -3926,7 +3926,13 @@
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-netperf.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-netstat.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-netstat.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-ping.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-ping.h</name>
@@ -3992,13 +3998,22 @@
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-tcpsend.h</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-text.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-text.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-time.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-time.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-udpsend.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-vars.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\apps\shell\shell-vars.h</name>
@@ -4040,10 +4055,82 @@
     <group>
       <name>lib</name>
       <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\aes-128.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\aes-128.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\assert.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\assert.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\crc16.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\crc16.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\gcr.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\gcr.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\ifft.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\ifft.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\core\lib\list.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\lib\list.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\me.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\me.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\me_tabs.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\me_tabs.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\memb.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\memb.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\mmem.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\mmem.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\petsciiconv.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\petsciiconv.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\print-stats.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\print-stats.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\random.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\random.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\lib\ringbuf.c</name>
@@ -4051,14 +4138,272 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\core\lib\ringbuf.h</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\sensors.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\sensors.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\settings.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\settings.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\trickle-timer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\trickle-timer.h</name>
+      </file>
     </group>
     <group>
       <name>net</name>
+      <group>
+        <name>ip</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\dhcpc.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\dhcpc.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\ip64-addr.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\ip64-addr.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\psock.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\psock.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\resolv.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\resolv.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\simple-udp.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\simple-udp.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\slipdev.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\slipdev.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\tcp-socket.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\tcp-socket.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\tcpip.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\tcpip.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\udp-socket.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\udp-socket.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-debug.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-debug.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-nameserver.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-nameserver.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-packetqueue.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-packetqueue.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-split.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-split.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-udp-packet.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip-udp-packet.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uip_arch.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uiplib.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uiplib.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ip\uipopt.h</name>
+        </file>
+      </group>
+      <group>
+        <name>ipv4</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uaodv-def.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uaodv-rt.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uaodv-rt.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uaodv.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uaodv.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-fw-drv.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-fw-drv.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-fw.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-fw.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-neighbor.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-neighbor.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-over-mesh.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip-over-mesh.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip_arp.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip_arp.h</name>
+        </file>
+      </group>
+      <group>
+        <name>rpl</name>
+        <excluded>
+          <configuration>hello-world</configuration>
+        </excluded>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-conf.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-dag-root.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-dag-root.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-dag.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-ext-header.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-icmp6.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-mrhof.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-nbr-policy.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-ns.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-ns.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-of0.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-private.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-timers.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl.h</name>
+        </file>
+      </group>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\link-stats.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\link-stats.h</name>
+      </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\net\linkaddr.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\net\linkaddr.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\nbr-table.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\nbr-table.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\net-debug.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\net-debug.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\netstack.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\netstack.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\packetbuf.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\packetbuf.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\queuebuf.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\queuebuf.h</name>
       </file>
     </group>
     <group>
