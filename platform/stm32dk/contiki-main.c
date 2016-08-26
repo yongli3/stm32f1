@@ -66,6 +66,6 @@ static void platform_init()
     uart2_init();
     led_init();
     clock_init();
-    //cc2520_init();
+    cc2520_init();
 	rtimer_init();
 }

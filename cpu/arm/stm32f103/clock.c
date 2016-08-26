@@ -49,3 +49,7 @@ unsigned long clock_seconds(void)
 {
     return current_seconds;
 }
+
+void watchdog_periodic(void)
+{}
+

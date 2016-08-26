@@ -56,6 +56,9 @@
 #define FOOTER1_CORRELATION 0x7f
 
 #include <stdio.h>
+
+#define clock_delay(t) clock_delay_usec(t)
+
 #define DEBUG 0
 #if DEBUG
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -72,7 +75,11 @@
 #define LEDS_OFF(x)
 #endif
 
-void cc2520_arch_init(void);
+void cc2520_arch_init(void) {};
+
+void cc2520_arch_fifop_int_init(void) {};
+void cc2520_arch_fifop_int_enable(void) {};
+void cc2520_arch_fifop_int_disable(void) {};
 
 /* XXX hack: these will be made as Chameleon packet attributes */
 rtimer_clock_t cc2520_time_of_arrival, cc2520_time_of_departure;

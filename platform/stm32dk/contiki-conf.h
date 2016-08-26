@@ -22,6 +22,14 @@ typedef uint16_t rtimer_clock_t;
 // The rate of the system clock
 #define CLOCK_CONF_SECOND       1000
 
+#ifndef   MIN
+  #define MIN(a, b)         (((a) < (b)) ? (a) : (b))
+#endif
+
+#ifndef   MAX
+  #define MAX(a, b)         (((a) > (b)) ? (a) : (b))
+#endif
+
 #ifndef NETSTACK_CONF_MAC
 /* #define NETSTACK_CONF_MAC     csma_driver */
 #define NETSTACK_CONF_MAC     nullmac_driver

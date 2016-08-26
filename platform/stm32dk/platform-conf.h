@@ -15,10 +15,9 @@
 //#define PRINTF_VCP		1
 //#endif
 //
-//#ifndef BV
-//#define BV(x) (1<<(x))
-//#endif
-
+#ifndef BV
+#define BV(x) (1<<(x))
+#endif
 
 #define ENERGEST_TOTAL_IS_RTIMER_T
 
@@ -28,11 +27,7 @@
 
 /*
  * SPI Driver
- */
-void cc2520_arch_fifop_int_init(void);
-void cc2520_arch_fifop_int_enable(void);
-void cc2520_arch_fifop_int_disable(void);
- 
+ */ 
 #define READ_PAD(port, pad) GPIO_ReadInputDataBit(port, pad)
 //(((port->IDR) >> (pad)) & 1)
 
@@ -49,6 +44,7 @@ void cc2520_arch_fifop_int_disable(void);
 
 #define SPI_WAITFOREOTx() do { while(!SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE)); SPI_I2S_ReceiveData(SPI2); } while (0)
 #define SPI_WAITFOREORx() do { while(!SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE)); } while (0)
+#define SPI_WAITFORTxREADY() do {} while (0)
 
 /*
  * Enables/disables CC2520 access to the SPI bus (not the bus).
