@@ -191,11 +191,11 @@
         </option>
         <option>
           <name>CCPreprocComments</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCPreprocLine</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CCListCFile</name>
@@ -312,13 +312,15 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
+          <state>$PROJ_DIR$\..\..\..\</state>
+          <state>$PROJ_DIR$\..\..\..\apps\shell</state>
           <state>$PROJ_DIR$\..\..\..\core</state>
           <state>$PROJ_DIR$\..\..\..\core\sys</state>
           <state>$PROJ_DIR$\..\..\..\lib</state>
-          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x</state>
-          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\CMSIS\CM3\CoreSupport</state>
-          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x</state>
-          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\inc</state>
+          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103</state>
+          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\CMSIS\CM3\CoreSupport</state>
+          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x</state>
+          <state>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\platform\stm32dk</state>
         </option>
         <option>
@@ -607,7 +609,7 @@
         <option>
           <name>OOCOutputFormat</name>
           <version>3</version>
-          <state>0</state>
+          <state>3</state>
         </option>
         <option>
           <name>OCOutputOverride</name>
@@ -615,7 +617,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>contiki-stm32.srec</state>
+          <state>contiki-stm32.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -623,7 +625,7 @@
         </option>
         <option>
           <name>OOCObjCopyEnable</name>
-          <state>0</state>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -3875,11 +3877,188 @@
     </settings>
   </configuration>
   <group>
+    <name>apps</name>
+    <group>
+      <name>serial-shell</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\serial-shell\serial-shell.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\serial-shell\serial-shell.h</name>
+      </file>
+    </group>
+    <group>
+      <name>shell</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-base64.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-blink.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-blink.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-coffee.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-collect-view.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-download.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-exec.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-file.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-httpd.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-irc.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-memdebug.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-netperf.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-netstat.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-ping.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-power.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-powertrace.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-ps.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-ps.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-reboot.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-reboot.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-debug-runicast.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-debug.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-neighbors.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-netcmd.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-ping.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-sendcmd.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-sniff.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime-unicast.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rime.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-rsh.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-run.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-sendtest.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-sky.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-tcpsend.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-text.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-time.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-udpsend.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-vars.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell-wget.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\shell\shell.h</name>
+      </file>
+    </group>
+  </group>
+  <group>
     <name>core</name>
+    <group>
+      <name>dev</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\dev\leds.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\dev\leds.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\dev\radio.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\dev\serial-line.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\dev\serial-line.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\dev\spi.h</name>
+      </file>
+    </group>
     <group>
       <name>lib</name>
       <file>
         <name>$PROJ_DIR$\..\..\..\core\lib\list.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\list.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\ringbuf.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\lib\ringbuf.h</name>
+      </file>
+    </group>
+    <group>
+      <name>net</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\linkaddr.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\core\net\linkaddr.h</name>
       </file>
     </group>
     <group>
@@ -3930,122 +4109,129 @@
     <group>
       <name>arm</name>
       <group>
-        <name>stm32f10x</name>
+        <name>stm32f103</name>
         <group>
           <name>Libraries</name>
           <group>
             <name>CMSIS</name>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\CMSIS\CM3\CoreSupport\core_cm3.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\CMSIS\CM3\CoreSupport\core_cm3.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\system_stm32f10x.c</name>
             </file>
           </group>
           <group>
             <name>EWARM</name>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_hd.s</name>
               <excluded>
                 <configuration>hello-world</configuration>
-                <configuration>process-post-test</configuration>
-                <configuration>process-post-isr-test</configuration>
               </excluded>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_md.s</name>
-              <excluded>
-                <configuration>timer-test</configuration>
-              </excluded>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\iar\startup_stm32f10x_md.s</name>
             </file>
           </group>
           <group>
             <name>StdPeriph_Driver</name>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_bkp.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_bkp.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_cec.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_cec.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_crc.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_crc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dac.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dac.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dbgmcu.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dbgmcu.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_exti.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_exti.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_fsmc.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_fsmc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rtc.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rtc.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_spi.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_spi.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</name>
             </file>
             <file>
-              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.c</name>
+              <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.c</name>
             </file>
           </group>
         </group>
         <file>
-          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\clock.c</name>
+          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\clock.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\rtimer-arch.c</name>
+          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\rtimer-arch.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\stm32f10x_it.c</name>
+          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\stm32f10x_it.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f10x\uart-debug.c</name>
+          <name>$PROJ_DIR$\..\..\..\cpu\arm\stm32f103\uart-debug.c</name>
         </file>
       </group>
     </group>
+  </group>
+  <group>
+    <name>dev</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\dev\cc2520\cc2520.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\dev\cc2520\cc2520.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\dev\cc2520\cc2520_const.h</name>
+    </file>
   </group>
   <group>
     <name>example</name>

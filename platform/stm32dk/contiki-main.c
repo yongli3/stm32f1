@@ -5,11 +5,20 @@
 #include <string.h>
 #include <math.h>
 
+#include "core/dev/serial-line.h"
+#include "dev/cc2520/cc2520.h"
+#include "net/ipv6/uip-ds6.h"
+
+#include "apps/serial-shell/serial-shell.h"
+
 #include "stm32f10x.h"
 #include "contiki.h"
 #include "sys/autostart.h"
 
 #include "uart-debug.h"
+
+extern int (*uart1_input_handler)(unsigned char c);
+
 static void platform_init();
 
 int main() 
@@ -24,9 +33,24 @@ int main()
 	process_init();
 	process_start(&etimer_process, NULL);
 
+
+    uart1_input_handler = serial_line_input_byte;
+
+    serial_line_init();
+
+
+
+
+
+
+
+
+
+    serial_shell_init();
+
 	ctimer_init();
 
-	autostart_start(autostart_processes);
+	//autostart_start(autostart_processes);
 
 	for (;;) 
     {
@@ -45,5 +69,6 @@ static void platform_init()
     uart2_init();
     led_init();
     clock_init();
+    //cc2520_init();
 	rtimer_init();
 }

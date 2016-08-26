@@ -33,9 +33,14 @@ void cc2520_arch_fifop_int_init(void);
 void cc2520_arch_fifop_int_enable(void);
 void cc2520_arch_fifop_int_disable(void);
  
-#define READ_PAD(port, pad) (((port->IDR) >> (pad)) & 1)
-#define SET_PAD(port, pad) (port->BSRRL = (1 << pad))
-#define CLEAR_PAD(port, pad) (port->BSRRH = (1 << pad))
+#define READ_PAD(port, pad) GPIO_ReadInputDataBit(port, pad)
+//(((port->IDR) >> (pad)) & 1)
+
+#define SET_PAD(port, pad) GPIO_SetBits(port, pad)
+//(port->BRR = (1 << pad))
+
+#define CLEAR_PAD(port, pad) GPIO_ResetBits(port, pad)
+//(port->BSRR = (1 << pad))
 
 #define CC2520_CONF_SYMBOL_LOOP_COUNT 26050
  
