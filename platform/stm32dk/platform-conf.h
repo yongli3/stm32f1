@@ -52,10 +52,13 @@
  */
 
 /* ENABLE CSn (active low) */
-#define CC2520_SPI_ENABLE()     do{CLEAR_PAD(GPIOB, 12);clock_delay(1);}while(0)
+#define CC2520_SPI_ENABLE()    do  {} while (0)
+//do{CLEAR_PAD(GPIOA, 4);clock_delay(1);}while(0)
 //#define CC2520_SPI_ENABLE()     CLEAR_PAD(GPIOB, 12)
 /* DISABLE CSn (active low) */
-#define CC2520_SPI_DISABLE()    do{SET_PAD(GPIOB, 12);clock_delay(1);}while(0)
+#define CC2520_SPI_DISABLE()   do  {} while (0) 
+
+//do{SET_PAD(GPIOB, 12);clock_delay(1);}while(0)
 //#define CC2520_SPI_DISABLE()    SET_PAD(GPIOB, 12)
 
 /* Pin status.CC2520 */

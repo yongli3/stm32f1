@@ -34,7 +34,6 @@ int main()
 	process_init();
 	process_start(&etimer_process, NULL);
 
-
     // Add shell commands
     uart1_input_handler = serial_line_input_byte;
     serial_line_init();
@@ -66,6 +65,6 @@ static void platform_init()
     uart2_init();
     led_init();
     clock_init();
+	rtimer_init();    
     cc2520_init();
-	rtimer_init();
 }

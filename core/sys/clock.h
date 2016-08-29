@@ -132,6 +132,8 @@ void clock_wait(clock_time_t t);
  */
 void clock_delay_usec(uint16_t dt);
 
+void mdelay(uint32_t ms);
+
 /**
  * Deprecated platform-specific routines.
  *

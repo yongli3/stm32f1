@@ -23,6 +23,13 @@ void SysTick_Handler(void)
     }
 }
 
+// delay ms
+void mdelay(uint32_t ms) {
+  uint32_t curTicks = current_clock;
+
+  while ((current_clock - curTicks) < ms);
+}
+
 void clock_init() 
 {
     if (SysTick_Config(SystemCoreClock / CLOCK_SECOND)) 
