@@ -75,53 +75,135 @@
 #define LEDS_OFF(x)
 #endif
 
-u8 SPI1_ReadWriteByte(u8 TxData)
+static u8 SPI1_ReadWriteByte(u8 TxData)
 {		
-	u8 retry=0;				 	
-	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET) //检查指定的SPI标志位设置与否:发送缓存空标志位
-		{
-		retry++;
-		if(retry>200)return 0;
-		}			  
-	SPI_I2S_SendData(SPI1, TxData); //通过外设SPIx发送一个数据
-	retry=0;
+    // Loop while DR register in not emplty
+	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
+    
+	SPI_I2S_SendData(SPI1, TxData);
 
-	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET)//检查指定的SPI标志位设置与否:接受缓存非空标志位
-		{
-		retry++;
-		if(retry>200)return 0;
-		}	  						    
-	return SPI_I2S_ReceiveData(SPI1); //返回通过SPIx最近接收的数据					    
+    // Wait to receive a byte
+	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
+	  						    
+	return SPI_I2S_ReceiveData(SPI1);					    
 }
 
-void cc2520_arch_init(void)
+static u8 cc2520_read_reg(u16 reg) 
 {
+    u8 val;
+    
+    CC2520_SPI_ENABLE();
+    SPI1_ReadWriteByte((CC2520_INS_MEMRD | ((reg >> 8) & 0xff)));
+    SPI1_ReadWriteByte((reg & 0xff));
+    val = SPI1_ReadWriteByte(0XFF);
+    CC2520_SPI_DISABLE();
+    return val;
+}
 
+static u8 cc2520_write_reg(u16 reg, u8 val) 
+{
+    u8 temp;
+    
+    CC2520_SPI_ENABLE();    
+    SPI1_ReadWriteByte((CC2520_INS_MEMWR | ((reg >> 8) & 0xff)));
+    SPI1_ReadWriteByte(reg & 0xff);
+    SPI1_ReadWriteByte(val);
+    CC2520_SPI_DISABLE();
+    return val;
+}
+
+static void cc2520_irq_init(void)
+{
+    EXTI_InitTypeDef EXTI_InitStructure;
+    NVIC_InitTypeDef NVIC_InitStructure;
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+    // PA0 = WK_UP
+ 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);//使能PORTA,PORTC时钟
+	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;//PA0
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; //PA0设置成输入，默认下拉
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOA.0
+
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);//外部中断，需要使能AFIO时钟
+
+    //PA0 EXT0
+ 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA,GPIO_PinSource0);
+   	EXTI_InitStructure.EXTI_Line=EXTI_Line0;
+  	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	
+  	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+  	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  	EXTI_Init(&EXTI_InitStructure);		//根据EXTI_InitStruct中指定的参数初始化外设EXTI寄存器
+ 	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;			//使能按键所在的外部中断通道
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;	//抢占优先级2 
+  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x02;					//子优先级1
+  	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//使能外部中断通道
+  	NVIC_Init(&NVIC_InitStructure);  	  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
+    
+    // PC1 EXT1
+    GPIO_EXTILineConfig(GPIO_PortSourceGPIOC,GPIO_PinSource1);
+  	EXTI_InitStructure.EXTI_Line=EXTI_Line1;
+  	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	
+  	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;//
+  	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  	EXTI_Init(&EXTI_InitStructure);	 	//根据EXTI_InitStruct中指定的参数初始化外设EXTI寄存器
+    NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn;			//使能按键所在的外部中断通道
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;	//抢占优先级2， 
+  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;					//子优先级1
+  	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;								//使能外部中断通道
+  	NVIC_Init(&NVIC_InitStructure);    
+}
+
+static void cc2520_arch_init(void)
+{
     u8 reg, val;
 
-    //SPI1 init
 	GPIO_InitTypeDef GPIO_InitStructure;
 	SPI_InitTypeDef  SPI_InitStructure; 
 	
  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOC|RCC_APB2Periph_SPI1, ENABLE);	
 
-    // PA4 = SPI_NSS
+    // PA4 = SPI_NSS output
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP ;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
     GPIO_SetBits(GPIOA,GPIO_Pin_4);
-    
-    // PC4 = RESET pin
+
+    // FIFO = input pull down
+    // FIFOP = input pull down
+    // CCA = input pull down
+    // SFD = input pull down
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD ;   //input
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD ;   //input
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+ 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD ;   //input
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);   
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD ;   //input
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+    // PC4 = RESET output
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU ;   //pull up output
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP ;   //pull up output
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	GPIO_ResetBits(GPIOC,GPIO_Pin_4);
 
-    // PA1 = VREG_EN pin
+    // PA1 = VREG_EN output
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU  ;   //上拉输入
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP  ;   // pull up output
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	GPIO_SetBits(GPIOA,GPIO_Pin_1);
@@ -149,22 +231,18 @@ void cc2520_arch_init(void)
     SPI_Init(SPI1, &SPI_InitStructure);
     // use hardware NSS
     //SPI_SSOutputCmd(SPI1, ENABLE);
+
     SPI_Cmd(SPI1, ENABLE);
-    while (1) {
-        // read 0x40 CHIPID
-        GPIO_ResetBits(GPIOA,GPIO_Pin_4);
-        reg = CC2520_INS_MEMRD | ((CC2520_CHIPID >> 8) & 0xff);
-        SPI1_ReadWriteByte(reg);
-        reg = CC2520_CHIPID;
-        SPI1_ReadWriteByte(reg);
-        val = SPI1_ReadWriteByte(0XFF);
-        GPIO_SetBits(GPIOA,GPIO_Pin_4);
-        if (0x84 != val) {
-            printf("ID=0x%x\r\n", val);
-        }
-    }
+
+    val = cc2520_read_reg(CC2520_CHIPID);
+    printf("\r\nID=0x%x\r\n", val);
+
+    val = cc2520_read_reg(CC2520_CHIPID);
+    printf("\r\nID=0x%x\r\n", val);    
+
+    val = cc2520_read_reg(CC2520_VERSION);
+    printf("\r\nversion=0x%x\r\n", val);    
     
-    SPI_Cmd(SPI1, DISABLE);
 
 #if 0
   /* all input by default, set these as output */
@@ -181,13 +259,41 @@ void cc2520_arch_init(void)
   cc2520_arch_sfd_init();
 #endif
 #endif
-  CC2520_SPI_DISABLE();                /* Unselect radio. */
+    CC2520_SPI_DISABLE();                /* Unselect radio. */
+    cc2520_irq_init();
 }
 
+static void cc2520_arch_fifop_int_init(void) 
+{
+}
 
-void cc2520_arch_fifop_int_init(void) {};
-void cc2520_arch_fifop_int_enable(void) {};
-void cc2520_arch_fifop_int_disable(void) {};
+static void cc2520_arch_fifop_int_enable(void) 
+{
+    NVIC_DisableIRQ(EXTI1_IRQn);
+}
+
+static void cc2520_arch_fifop_int_disable(void) 
+{
+    NVIC_DisableIRQ(EXTI1_IRQn);
+}
+
+static void cc2520_arch_fifop_int_clear(void)
+{
+}
+
+void EXTI0_IRQHandler(void)
+{
+    //mdelay(10);    //消抖
+    printf("EXT0\r\n");
+	EXTI_ClearITPendingBit(EXTI_Line0);  //清除EXTI0线路挂起位
+}
+
+void EXTI1_IRQHandler(void)
+{
+    printf("EXT1\r\n");
+    cc2520_interrupt();
+	EXTI_ClearITPendingBit(EXTI_Line1);  //清除EXTI1线路挂起位
+}
 
 /* XXX hack: these will be made as Chameleon packet attributes */
 rtimer_clock_t cc2520_time_of_arrival, cc2520_time_of_departure;
@@ -432,10 +538,10 @@ cc2520_init(void)
     int s = splhigh();
     cc2520_arch_init();		/* Initalize ports and SPI. */
     CC2520_DISABLE_FIFOP_INT();
-    CC2520_FIFOP_INT_INIT();
     splx(s);
   }
 
+#if 0
   SET_VREG_INACTIVE();
   clock_delay(250);
   /* Turn on voltage regulator and reset. */
@@ -445,6 +551,7 @@ cc2520_init(void)
   clock_delay(127);
   SET_RESET_INACTIVE();
   clock_delay(125);
+#endif
   /* Turn on the crystal oscillator. */
   strobe(CC2520_INS_SXOSCON);
   clock_delay(125);

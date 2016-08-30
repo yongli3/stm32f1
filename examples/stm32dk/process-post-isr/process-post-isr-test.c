@@ -71,3 +71,4 @@ void USART2_IRQHandler(void)
         //process_post(&receive_process, event_data_ready, (void*)&counter);        
     }
 }
+

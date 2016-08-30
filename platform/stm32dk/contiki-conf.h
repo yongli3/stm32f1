@@ -15,7 +15,7 @@ typedef uint32_t u32_t;
 typedef int32_t s32_t;
 typedef unsigned short uip_stats_t;
 
-// rtimer相关定义，实际和rtimer默认值设置相似
+// rtimer
 typedef uint16_t rtimer_clock_t;
 #define RTIMER_CLOCK_LT(a,b)     ((int16_t)((a)-(b)) < 0)
 
