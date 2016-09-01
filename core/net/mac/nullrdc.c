@@ -51,7 +51,7 @@
 #include "sys/cooja_mt.h"
 #endif /* CONTIKI_TARGET_COOJA */
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -265,6 +265,10 @@ send_list(mac_callback_t sent, void *ptr, struct rdc_buf_list *buf_list)
 static void
 packet_input(void)
 {
+    linkaddr_t *addr1;
+    linkaddr_t *addr2;
+    int i;
+
 #if NULLRDC_SEND_802154_ACK
   int original_datalen;
   uint8_t *original_dataptr;
@@ -286,6 +290,12 @@ packet_input(void)
                                          &linkaddr_node_addr) &&
             !packetbuf_holds_broadcast()) {
     PRINTF("nullrdc: not for us\n");
+    addr1 = (linkaddr_t *)packetbuf_addr(PACKETBUF_ADDR_RECEIVER);
+    addr2 = (linkaddr_t *)&linkaddr_node_addr;
+    for (i = 0; i < LINKADDR_SIZE; i++) {
+        PRINTF("0x%02x != 0x%02x\n", addr1[i], addr2[i]);
+    }
+    
 #endif /* NULLRDC_ADDRESS_FILTER */
   } else {
     int duplicate = 0;

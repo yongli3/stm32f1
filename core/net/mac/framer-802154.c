@@ -43,7 +43,7 @@
 #include "lib/random.h"
 #include <string.h>
 
-#define DEBUG 0
+#define DEBUG 1
 
 #if DEBUG
 #include <stdio.h>
@@ -186,7 +186,7 @@ create_frame(int type, int do_create)
 
     PRINTF("15.4-OUT: %2X", params.fcf.frame_type);
     PRINTADDR(params.dest_addr);
-    PRINTF("%d %u (%u)\n", hdr_len, packetbuf_datalen(), packetbuf_totlen());
+    PRINTF("hdr_len=%d datlen=%u (%u)\n", hdr_len, packetbuf_datalen(), packetbuf_totlen());
 
     return hdr_len;
   } else {
@@ -222,7 +222,7 @@ parse(void)
       if(frame.dest_pid != frame802154_get_pan_id() &&
          frame.dest_pid != FRAME802154_BROADCASTPANDID) {
         /* Packet to another PAN */
-        PRINTF("15.4: for another pan %u\n", frame.dest_pid);
+        PRINTF("15.4: for another pan %u\r\n", frame.dest_pid);
         return FRAMER_FAILED;
       }
       if(!frame802154_is_broadcast_addr(frame.fcf.dest_addr_mode, frame.dest_addr)) {
@@ -258,7 +258,7 @@ parse(void)
     PRINTF("15.4-IN: %2X", frame.fcf.frame_type);
     PRINTADDR(packetbuf_addr(PACKETBUF_ADDR_SENDER));
     PRINTADDR(packetbuf_addr(PACKETBUF_ADDR_RECEIVER));
-    PRINTF("%d %u (%u)\n", hdr_len, packetbuf_datalen(), packetbuf_totlen());
+    PRINTF("hdr_len=%d buflen=%u totlen=(%u)\r\n", hdr_len, packetbuf_datalen(), packetbuf_totlen());
 
     return hdr_len;
   }

@@ -184,6 +184,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>STM32F10X_MD</state>
           <state>AUTOSTART_ENABLE</state>
+          <state>NETSTACK_CONF_WITH_IPV6=1</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -3879,6 +3880,15 @@
   <group>
     <name>apps</name>
     <group>
+      <name>ping6</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\ping6\ping6.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\apps\ping6\ping6.h</name>
+      </file>
+    </group>
+    <group>
       <name>serial-shell</name>
       <file>
         <name>$PROJ_DIR$\..\..\..\apps\serial-shell\serial-shell.c</name>
@@ -4263,6 +4273,9 @@
       </group>
       <group>
         <name>ipv4</name>
+        <excluded>
+          <configuration>hello-world</configuration>
+        </excluded>
         <file>
           <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uaodv-def.h</name>
         </file>
@@ -4310,6 +4323,87 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\core\net\ipv4\uip_arp.h</name>
+        </file>
+      </group>
+      <group>
+        <name>ipv6</name>
+        <group>
+          <name>multicast</name>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\esmrf.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\esmrf.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\roll-tm.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\roll-tm.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\smrf.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\smrf.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\uip-mcast6-engines.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\uip-mcast6-route.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\uip-mcast6-route.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\uip-mcast6-stats.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\uip-mcast6-stats.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\core\net\ipv6\multicast\uip-mcast6.h</name>
+          </file>
+        </group>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\sicslowpan.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\sicslowpan.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-ds6-nbr.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-ds6-nbr.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-ds6-route.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-ds6-route.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-ds6.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-ds6.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-icmp6.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-icmp6.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-nd6.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip-nd6.h</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\..\..\core\net\ipv6\uip6.c</name>
         </file>
       </group>
       <group>
@@ -4362,6 +4456,9 @@
       </group>
       <group>
         <name>rime</name>
+        <excluded>
+          <configuration>hello-world</configuration>
+        </excluded>
         <file>
           <name>$PROJ_DIR$\..\..\..\core\net\rime\abc.c</name>
         </file>
@@ -4413,9 +4510,6 @@
       </group>
       <group>
         <name>rpl</name>
-        <excluded>
-          <configuration>hello-world</configuration>
-        </excluded>
         <file>
           <name>$PROJ_DIR$\..\..\..\core\net\rpl\rpl-conf.h</name>
         </file>

@@ -81,8 +81,8 @@
 #include "net/ipv6/multicast/uip-mcast6.h"
 
 #if UIP_CONF_IPV6_RPL
-#include "rpl/rpl.h"
-#include "rpl/rpl-private.h"
+#include "net/rpl/rpl.h"
+#include "net/rpl/rpl-private.h"
 #endif
 
 #include <string.h>
@@ -91,7 +91,7 @@
 /* For Debug, logging, statistics                                            */
 /*---------------------------------------------------------------------------*/
 
-#define DEBUG DEBUG_NONE
+#define DEBUG 1
 #include "net/ip/uip-debug.h"
 
 #if UIP_LOGGING == 1

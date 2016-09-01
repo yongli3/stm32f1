@@ -63,7 +63,7 @@ static uint8_t hdrlen;
 static uint32_t packetbuf_aligned[(PACKETBUF_SIZE + 3) / 4];
 static uint8_t *packetbuf = (uint8_t *)packetbuf_aligned;
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -150,7 +150,7 @@ packetbuf_hdrreduce(int size)
 void
 packetbuf_set_datalen(uint16_t len)
 {
-  PRINTF("packetbuf_set_len: len %d\n", len);
+  PRINTF("set_len: len %d\r\n", len);
   buflen = len;
 }
 /*---------------------------------------------------------------------------*/

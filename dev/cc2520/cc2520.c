@@ -224,7 +224,7 @@ static void cc2520_arch_init(void)
 	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;		//选择了串行时钟的稳态:时钟悬空低电平
 	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;	//数据捕获于第一个时钟沿
 	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;		//NSS信号由硬件（NSS管脚）还是软件（使用SSI位）管理:内部NSS信号有SSI位控制
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;		//定义波特率预分频的值:波特率预分频值为256
+	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;		//定义波特率预分频的值:波特率预分频值为256
 	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;	//指定数据传输从MSB位还是LSB位开始:数据传输从MSB位开始
 	SPI_InitStructure.SPI_CRCPolynomial = 7;	//CRC值计算的多项式
 
@@ -269,7 +269,7 @@ static void cc2520_arch_fifop_int_init(void)
 
 static void cc2520_arch_fifop_int_enable(void) 
 {
-    NVIC_DisableIRQ(EXTI1_IRQn);
+    NVIC_EnableIRQ(EXTI1_IRQn);
 }
 
 static void cc2520_arch_fifop_int_disable(void) 
@@ -463,6 +463,7 @@ static uint8_t locked, lock_on, lock_off;
 static void
 on(void)
 {
+    PRINTF("off\n");       
   CC2520_ENABLE_FIFOP_INT();
   strobe(CC2520_INS_SRXON);
 
@@ -474,7 +475,7 @@ on(void)
 static void
 off(void)
 {
-  /*  PRINTF("off\n");*/
+  PRINTF("off\n");
   receive_on = 0;
 
   /* Wait for transmission to end before turning radio off. */
@@ -613,8 +614,8 @@ cc2520_init(void)
   /* Set FIFOP threshold to maximum .*/
   setreg(CC2520_FIFOPCTRL,   FIFOP_THR(0x7F));
 
-  cc2520_set_pan_addr(0xffff, 0x0000, NULL);
-  cc2520_set_channel(26);
+  cc2520_set_pan_addr(0x0777, 0x8003, NULL);
+  cc2520_set_channel(11);
 
   flushrx();
 
@@ -903,7 +904,7 @@ PROCESS_THREAD(cc2520_process, ev, data)
   while(1) {
     PROCESS_YIELD_UNTIL(ev == PROCESS_EVENT_POLL);
 
-    PRINTF("cc2520_process: calling receiver callback\n");
+    PRINTF("*****cc2520: receiver\r\n");
 
     packetbuf_clear();
     packetbuf_set_attr(PACKETBUF_ATTR_TIMESTAMP, last_packet_timestamp);

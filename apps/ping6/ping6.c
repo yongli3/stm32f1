@@ -31,14 +31,14 @@
 #include "contiki-lib.h"
 #include "contiki-net.h"
 
-#include "mac.h"
+#include "net/mac/mac.h"
 
 #include <string.h>
 #include <stdio.h>
 
-#define MACDEBUG 0
+#define MACDEBUG 1
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -73,10 +73,10 @@ ping6handler(process_event_t ev, process_data_t data)
 #if MACDEBUG
     // Setup destination address.
     addr[0] = 0xFE80;
-    addr[4] = 0x6466;
-    addr[5] = 0x6666;
-    addr[6] = 0x6666;
-    addr[7] = 0x6666;
+    addr[4] = 0x5413;
+    addr[5] = 0xaca7;
+    addr[6] = 0xa6ee;
+    addr[7] = 0x6ab5;
     uip_ip6addr(&dest_addr, addr[0], addr[1],addr[2],
                 addr[3],addr[4],addr[5],addr[6],addr[7]);
 

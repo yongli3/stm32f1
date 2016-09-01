@@ -30,6 +30,11 @@ typedef uint16_t rtimer_clock_t;
   #define MAX(a, b)         (((a) > (b)) ? (a) : (b))
 #endif
 
+// enable IPV6
+#ifndef NETSTACK_CONF_WITH_IPV6
+#define  NETSTACK_CONF_WITH_IPV6    1
+#endif
+
 #ifndef NETSTACK_CONF_MAC
 /* #define NETSTACK_CONF_MAC     csma_driver */
 #define NETSTACK_CONF_MAC     nullmac_driver
@@ -56,7 +61,9 @@ typedef uint16_t rtimer_clock_t;
 #define CC2520_CONF_AUTOACK              1
 #endif /* CC2520_CONF_AUTOACK */
 
-#define NULLRDC_CONF_802154_AUTOACK      1
+#define NULLRDC_CONF_802154_AUTOACK      0
+
+#define WITH_UIP6       1
 
 #if WITH_UIP6
 /* Network setup for IPv6 */
@@ -119,13 +126,13 @@ typedef uint16_t rtimer_clock_t;
 
 #define CONTIKIMAC_CONF_BROADCAST_RATE_LIMIT 0
 
-#define IEEE802154_CONF_PANID       0xABCD
+#define IEEE802154_CONF_PANID       0x0777
 
 #define SHELL_VARS_CONF_RAM_BEGIN 0x1100
 #define SHELL_VARS_CONF_RAM_END 0x2000
 
 #define PROFILE_CONF_ON 0
-#define ENERGEST_CONF_ON 1
+#define ENERGEST_CONF_ON 0
 
 #define ELFLOADER_CONF_TEXT_IN_ROM 0
 #ifndef ELFLOADER_CONF_DATAMEMORY_SIZE
@@ -147,6 +154,7 @@ typedef uint16_t rtimer_clock_t;
 
 #ifdef WITH_UIP6
 
+#define UIP_CONF_ICMP6                  1
 #define LINKADDR_CONF_SIZE              8
 
 #define UIP_CONF_LL_802154              1
@@ -165,6 +173,7 @@ typedef uint16_t rtimer_clock_t;
 #define UIP_CONF_DS6_ROUTE_NBU   30
 #endif /* UIP_CONF_DS6_ROUTE_NBU */
 
+#define UIP_CONF_ND6_SEND_NA		1
 #define UIP_CONF_ND6_SEND_RA		0
 #define UIP_CONF_ND6_REACHABLE_TIME     600000
 #define UIP_CONF_ND6_RETRANS_TIMER      10000
@@ -200,9 +209,6 @@ typedef uint16_t rtimer_clock_t;
 #else /* WITH_UIP6 */
 #define UIP_CONF_IP_FORWARD      1
 #define UIP_CONF_BUFFER_SIZE     1000
-#ifndef UIP_CONF_IPV6_RPL
-#define UIP_CONF_IPV6_RPL               0
-#endif /* UIP_CONF_IPV6_RPL */
 #endif /* WITH_UIP6 */
 
 #define UIP_CONF_ICMP_DEST_UNREACH 1
@@ -224,10 +230,12 @@ typedef uint16_t rtimer_clock_t;
 #define UIP_CONF_UDP             1
 #define UIP_CONF_UDP_CHECKSUMS   1
 #define UIP_CONF_PINGADDRCONF    0
-#define UIP_CONF_LOGGING         0
+#define UIP_CONF_LOGGING         1
 
+#define UIP_CONF_TCP            1
 #define UIP_CONF_TCP_SPLIT       0
 
+#define LOG_CONF_ENABLED         1
 
 
 /* include the project config */

@@ -122,7 +122,6 @@ void cc2520_set_cca_threshold(int value);
     for(i = 0; i < (count); i++) {                                      \
      ((uint8_t *)(buffer))[i] = SPI1_ReadWriteByte(0xFF);                               \
     }                                                                   \
-    clock_delay(1);                                                     \
     CC2520_SPI_DISABLE();                                               \
   } while(0)
 

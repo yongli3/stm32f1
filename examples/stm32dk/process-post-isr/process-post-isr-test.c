@@ -7,7 +7,7 @@ int (* uart1_input_handler)(unsigned char c) = NULL;
 
 PROCESS(receive_process, "Receive Process");
 
-AUTOSTART_PROCESSES(&receive_process);
+//AUTOSTART_PROCESSES(&receive_process);
 
 static process_event_t event_data_ready;
 

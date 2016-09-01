@@ -47,7 +47,8 @@
 #include "net/ipv6/uip-icmp6.h"
 #include "contiki-default-conf.h"
 
-#define DEBUG 0
+#define DEBUG 1
+#include "net/ip/uip-debug.h"
 #if DEBUG
 #include <stdio.h>
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -65,7 +66,7 @@
 #define UIP_FIRST_EXT_BUF        ((struct uip_ext_hdr *)&uip_buf[UIP_LLIPH_LEN])
 
 #if UIP_CONF_IPV6_RPL
-#include "rpl/rpl.h"
+#include "net/rpl/rpl.h"
 #endif /* UIP_CONF_IPV6_RPL */
 
 /** \brief temporary IP address */

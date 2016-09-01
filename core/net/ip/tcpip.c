@@ -54,7 +54,7 @@
 
 #include <string.h>
 
-#define DEBUG DEBUG_NONE
+#define DEBUG 1
 #include "net/ip/uip-debug.h"
 
 #if UIP_LOGGING
@@ -74,7 +74,7 @@ extern struct uip_fallback_interface UIP_FALLBACK_INTERFACE;
 #endif
 
 #if UIP_CONF_IPV6_RPL
-#include "rpl/rpl.h"
+#include "net/rpl/rpl.h"
 #endif
 
 process_event_t tcpip_event;

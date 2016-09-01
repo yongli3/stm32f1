@@ -54,7 +54,7 @@
 #include "net/rpl/rpl-ns.h"
 #include "net/packetbuf.h"
 #include "net/ipv6/multicast/uip-mcast6.h"
-#include "random.h"
+#include "lib/random.h"
 
 #include <limits.h>
 #include <string.h>

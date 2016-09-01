@@ -95,11 +95,16 @@ void led_init()
   GPIO_InitTypeDef GPIO_InitStructure;
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOD,ENABLE);
 
+  //LED OFF
+  GPIO_SetBits(GPIOA,GPIO_Pin_8);
+
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
+  // LED OFF
+  GPIO_SetBits(GPIOD,GPIO_Pin_2);
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
@@ -109,6 +114,15 @@ void led_init()
 #if 1
 int fputc(int ch, FILE * f)
 {
+#if 0
+    if ('\r' == ch)
+        return ch;
+#endif    
+    // send '\r' if ch = 'n'
+    if ('\n' == ch) {
+        USART_SendData(USART1, '\r');
+        while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET );
+    }
     USART_SendData(USART1, (uint8_t)ch);
     while(USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET ); 
     return ch;
