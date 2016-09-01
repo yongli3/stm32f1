@@ -570,12 +570,14 @@ tcpip_ipv6_output(void)
 
     nbr = NULL;
 
+#if 1    
     /* We first check if the destination address is on our immediate
        link. If so, we simply use the destination address as our
        nexthop address. */
     if(nexthop == NULL && uip_ds6_is_addr_onlink(&UIP_IP_BUF->destipaddr)){
       nexthop = &UIP_IP_BUF->destipaddr;
     }
+#endif
 
     if(nexthop == NULL) {
       uip_ds6_route_t *route;

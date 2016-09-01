@@ -75,6 +75,9 @@
 #define LEDS_OFF(x)
 #endif
 
+extern uint8_t mac_longaddr[8];
+extern uint16_t mac_shortaddr;
+
 static u8 SPI1_ReadWriteByte(u8 TxData)
 {		
     // Loop while DR register in not emplty
@@ -224,7 +227,7 @@ static void cc2520_arch_init(void)
 	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;		//选择了串行时钟的稳态:时钟悬空低电平
 	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;	//数据捕获于第一个时钟沿
 	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;		//NSS信号由硬件（NSS管脚）还是软件（使用SSI位）管理:内部NSS信号有SSI位控制
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;		//定义波特率预分频的值:波特率预分频值为256
+	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;		//定义波特率预分频的值:波特率预分频值为256
 	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;	//指定数据传输从MSB位还是LSB位开始:数据传输从MSB位开始
 	SPI_InitStructure.SPI_CRCPolynomial = 7;	//CRC值计算的多项式
 
@@ -614,8 +617,8 @@ cc2520_init(void)
   /* Set FIFOP threshold to maximum .*/
   setreg(CC2520_FIFOPCTRL,   FIFOP_THR(0x7F));
 
-  cc2520_set_pan_addr(0x0777, 0x8003, NULL);
-  cc2520_set_channel(11);
+  cc2520_set_pan_addr(IEEE802154_PANID, mac_shortaddr, mac_longaddr);
+  cc2520_set_channel(RF_CHANNEL);
 
   flushrx();
 
@@ -731,7 +734,7 @@ cc2520_prepare(const void *payload, unsigned short payload_len)
   uint8_t total_len;
   GET_LOCK();
 
-  PRINTF("cc2520: sending %d bytes\n", payload_len);
+  PRINTF("#######cc2520_sending %d bytes\n", payload_len);
   /*int i;
   for(i = 0; i < payload_len;i++)
 	  printf("%x",((uint8_t *) payload)[i]);
@@ -904,7 +907,7 @@ PROCESS_THREAD(cc2520_process, ev, data)
   while(1) {
     PROCESS_YIELD_UNTIL(ev == PROCESS_EVENT_POLL);
 
-    PRINTF("*****cc2520: receiver\r\n");
+    PRINTF("*****cc2520_receiver ");
 
     packetbuf_clear();
     packetbuf_set_attr(PACKETBUF_ATTR_TIMESTAMP, last_packet_timestamp);

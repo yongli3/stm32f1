@@ -21,13 +21,17 @@
     extern int (*uart1_input_handler)(unsigned char c);
     
     static void platform_init();
+
+uint8_t mac_longaddr[8];
+uint16_t mac_shortaddr;
+linkaddr_t mac_linkaddr = { { 0x80, 0x03, 0x00, 0x00, 0, 0, 0, 0 }};
+
 int main()
 {
-    linkaddr_t linkaddr = { { 0x80, 0x03, 0x00, 0x00, 0, 0, 0, 0 }};
     int i;
     
        platform_init();
-       printf("Hello Contiki\r\n");
+       printf("Hello Contiki\n");
 
 
     //LED OFF
@@ -58,9 +62,24 @@ int main()
 	ctimer_init();
 
 #if NETSTACK_CONF_WITH_IPV6 
-    // set MAC address
-    memcpy(&uip_lladdr.addr, &linkaddr.u8, sizeof(linkaddr_t));
-    linkaddr_set_node_addr(&linkaddr);
+    // set MAC address linkaddr_node_addr
+    memcpy(&uip_lladdr.addr, &mac_linkaddr.u8, sizeof(linkaddr_t));
+    linkaddr_set_node_addr(&mac_linkaddr);
+
+    // set short/long address using MAC address
+    { 
+        mac_shortaddr = (linkaddr_node_addr.u8[0] << 8) +
+          linkaddr_node_addr.u8[1];
+        memset(mac_longaddr, 0, sizeof(mac_longaddr));
+        linkaddr_copy((linkaddr_t *)&mac_longaddr, &linkaddr_node_addr);
+
+        printf("short ADDR:%x ", mac_shortaddr);
+        printf("MAC %02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x\n",
+               mac_longaddr[7], mac_longaddr[6], mac_longaddr[5], mac_longaddr[4],
+               mac_longaddr[3], mac_longaddr[2], mac_longaddr[1], mac_longaddr[0]);
+    
+        //cc2520_set_pan_addr(IEEE802154_PANID, shortaddr, longaddr);
+      }
 
     //cc2520_set_pan_addr(IEEE802154_PANID, shortaddr, longaddr);
 
@@ -107,23 +126,22 @@ for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
 }
 
 #endif
-    
-    {
-        uint8_t longaddr[8];
-        uint16_t shortaddr;
-    
-        shortaddr = (linkaddr_node_addr.u8[0] << 8) +
-          linkaddr_node_addr.u8[1];
-        memset(longaddr, 0, sizeof(longaddr));
-        linkaddr_copy((linkaddr_t *)&longaddr, &linkaddr_node_addr);
 
-        printf("short ADDR:%x ", shortaddr);
-        printf("MAC %02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x ",
-               longaddr[7], longaddr[6], longaddr[5], longaddr[4],
-               longaddr[3], longaddr[2], longaddr[1], longaddr[0]);
-    
-        //cc2520_set_pan_addr(IEEE802154_PANID, shortaddr, longaddr);
+ if(!UIP_CONF_IPV6_RPL) {
+      uip_ipaddr_t ipaddr;
+      int i;
+      uip_ip6addr(&ipaddr, UIP_DS6_DEFAULT_PREFIX, 0, 0, 0, 0, 0, 0, 0);
+      uip_ds6_set_addr_iid(&ipaddr, &uip_lladdr);
+      uip_ds6_addr_add(&ipaddr, 0, ADDR_TENTATIVE);
+      printf("Tentative global IPv6 address ");
+      for(i = 0; i < 7; ++i) {
+        printf("%02x%02x:",
+               ipaddr.u8[i * 2], ipaddr.u8[i * 2 + 1]);
       }
+      printf("%02x%02x\n",
+             ipaddr.u8[7 * 2], ipaddr.u8[7 * 2 + 1]);
+    }
+
 
     queuebuf_init();
     //packetbuf_clear();

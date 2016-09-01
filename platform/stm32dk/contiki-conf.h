@@ -121,7 +121,7 @@ typedef uint16_t rtimer_clock_t;
 #define PACKETBUF_CONF_ATTRS_INLINE 1
 
 #ifndef RF_CHANNEL
-#define RF_CHANNEL              26
+#define RF_CHANNEL              11
 #endif /* RF_CHANNEL */
 
 #define CONTIKIMAC_CONF_BROADCAST_RATE_LIMIT 0
@@ -160,7 +160,7 @@ typedef uint16_t rtimer_clock_t;
 #define UIP_CONF_LL_802154              1
 #define UIP_CONF_LLH_LEN                0
 
-#define UIP_CONF_ROUTER                 1
+#define UIP_CONF_ROUTER                 0
 #ifndef UIP_CONF_IPV6_RPL
 #define UIP_CONF_IPV6_RPL               0
 #endif /* UIP_CONF_IPV6_RPL */

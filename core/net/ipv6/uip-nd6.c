@@ -801,6 +801,9 @@ uip_nd6_ra_output(uip_ipaddr_t * dest)
 void
 uip_nd6_rs_output(void)
 {
+
+
+
   UIP_IP_BUF->vtc = 0x60;
   UIP_IP_BUF->tcflow = 0;
   UIP_IP_BUF->flow = 0;
