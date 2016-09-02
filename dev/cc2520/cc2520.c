@@ -914,8 +914,10 @@ PROCESS_THREAD(cc2520_process, ev, data)
     len = cc2520_read(packetbuf_dataptr(), PACKETBUF_SIZE);
     packetbuf_set_datalen(len);
 
-    NETSTACK_RDC.input();
-    /* flushrx(); */
+    if (len > FOOTER_LEN)
+        NETSTACK_RDC.input();
+    else 
+        flushrx();
   }
 
   PROCESS_END();
@@ -927,6 +929,8 @@ cc2520_read(void *buf, unsigned short bufsize)
   uint8_t footer[2];
   uint8_t len;
 
+  printf("+%s\n", __func__);
+
   if(!CC2520_FIFOP_IS_1) {
     return 0;
   }
@@ -937,6 +941,7 @@ cc2520_read(void *buf, unsigned short bufsize)
 
   getrxbyte(&len);
 
+  printf("rx-len=%d\n", len);  
   if(len > CC2520_MAX_PACKET_LEN) {
     /* Oops, we must be out of sync. */
     flushrx();

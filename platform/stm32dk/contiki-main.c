@@ -1,37 +1,37 @@
 #include <stdio.h>
-    #include <stdlib.h>
-    #include <stdint.h>
-    #include <string.h>
-    #include <math.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <math.h>
     
-    #include "contiki-conf.h"
-    #include "contiki-net.h"
-    #include "core/dev/serial-line.h"
-    #include "dev/cc2520/cc2520.h"
-    #include "net/ipv6/uip-ds6.h"
+#include "contiki-conf.h"
+#include "contiki-net.h"
+#include "core/dev/serial-line.h"
+#include "dev/cc2520/cc2520.h"
+#include "net/ipv6/uip-ds6.h"
     
-    #include "apps/serial-shell/serial-shell.h"
+#include "apps/serial-shell/serial-shell.h"
     
-    #include "stm32f10x.h"
-    #include "contiki.h"
-    #include "sys/autostart.h"
+#include "stm32f10x.h"
+#include "contiki.h"
+#include "sys/autostart.h"
     
-    #include "uart-debug.h"
+#include "uart-debug.h"
     
-    extern int (*uart1_input_handler)(unsigned char c);
+extern int (*uart1_input_handler)(unsigned char c);
     
-    static void platform_init();
+static void platform_init();
 
 uint8_t mac_longaddr[8];
 uint16_t mac_shortaddr;
-linkaddr_t mac_linkaddr = { { 0x80, 0x03, 0x00, 0x00, 0, 0, 0, 0 }};
+linkaddr_t mac_linkaddr = { { 0x80, 0x03, 0x00, 0x00, 0, 0, 0, 0xaa }};
 
 int main()
 {
     int i;
     
-       platform_init();
-       printf("Hello Contiki\n");
+    platform_init();
+    printf("Hello Contiki\n");
 
 
     //LED OFF
@@ -127,6 +127,7 @@ for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
 
 #endif
 
+#if 0
  if(!UIP_CONF_IPV6_RPL) {
       uip_ipaddr_t ipaddr;
       int i;
@@ -142,7 +143,7 @@ for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
              ipaddr.u8[7 * 2], ipaddr.u8[7 * 2 + 1]);
     }
 
-
+#endif
     queuebuf_init();
     //packetbuf_clear();
 #if 0
@@ -155,7 +156,7 @@ for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
     netstack_init();
 
     
-      printf(CONTIKI_VERSION_STRING " started. ");
+    printf(CONTIKI_VERSION_STRING "TCP started. ");
 
       process_start(&tcpip_process, NULL);
 
@@ -164,16 +165,13 @@ for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
 
 {
   u8 state; 
-  int i;
-#define PRINTF(...) printf(__VA_ARGS__)
-#define PRINT6ADDR(addr) PRINTF(" %02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x ", ((uint8_t *)addr)[0], ((uint8_t *)addr)[1], ((uint8_t *)addr)[2], ((uint8_t *)addr)[3], ((uint8_t *)addr)[4], ((uint8_t *)addr)[5], ((uint8_t *)addr)[6], ((uint8_t *)addr)[7], ((uint8_t *)addr)[8], ((uint8_t *)addr)[9], ((uint8_t *)addr)[10], ((uint8_t *)addr)[11], ((uint8_t *)addr)[12], ((uint8_t *)addr)[13], ((uint8_t *)addr)[14], ((uint8_t *)addr)[15])
-  
   printf("Server IPv6 addresses:\n\r");
   for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
     state = uip_ds6_if.addr_list[i].state;
     if(uip_ds6_if.addr_list[i].isused &&
        (state == ADDR_TENTATIVE || state == ADDR_PREFERRED)) {
-      PRINT6ADDR(&uip_ds6_if.addr_list[i].ipaddr);
+      //PRINT6ADDR(&uip_ds6_if.addr_list[i].ipaddr);
+      uip_debug_ipaddr_print(&(uip_ds6_if.addr_list[i]).ipaddr);
       printf("\n\r");
     }
   }
@@ -214,6 +212,9 @@ tcpip_ipv6_output: neighbor not in cache
 #endif
 #endif
 
+    mdelay(2000);
+    // test IP
+    ip_test_init();
 	//autostart_start(autostart_processes);
 
 	for (;;) 
