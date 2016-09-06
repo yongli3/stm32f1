@@ -25,12 +25,13 @@ extern int (*uart1_input_handler)(unsigned char c);
     
 static void platform_init();
 
-uint8_t mac_longaddr[8];
+uint8_t sys_seed;
+uint8_t mac_longaddr[8] = { 0x80, 0x03, 0x00, 0x00, 0, 0, 0, 0xbb };
 uint16_t mac_shortaddr;
-linkaddr_t mac_linkaddr = { { 0x80, 0x03, 0x00, 0x00, 0, 0, 0, 0xaa }};
 
 int main()
 {
+    linkaddr_t linkaddr;
     int i;
     
     platform_init();
@@ -49,6 +50,7 @@ int main()
 	process_init();
 	process_start(&etimer_process, NULL);
 
+
     //cc2520_init();
 
     // Add shell commands
@@ -65,23 +67,6 @@ int main()
 
 #if NETSTACK_CONF_WITH_IPV6 
     // set MAC address linkaddr_node_addr
-    memcpy(&uip_lladdr.addr, &mac_linkaddr.u8, sizeof(linkaddr_t));
-    linkaddr_set_node_addr(&mac_linkaddr);
-
-    // set short/long address using MAC address
-    { 
-        mac_shortaddr = (linkaddr_node_addr.u8[0] << 8) +
-          linkaddr_node_addr.u8[1];
-        memset(mac_longaddr, 0, sizeof(mac_longaddr));
-        linkaddr_copy((linkaddr_t *)&mac_longaddr, &linkaddr_node_addr);
-
-        printf("short ADDR:%x ", mac_shortaddr);
-        printf("MAC %02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x\n",
-               mac_longaddr[7], mac_longaddr[6], mac_longaddr[5], mac_longaddr[4],
-               mac_longaddr[3], mac_longaddr[2], mac_longaddr[1], mac_longaddr[0]);
-    
-        //cc2520_set_pan_addr(IEEE802154_PANID, shortaddr, longaddr);
-      }
 
     //cc2520_set_pan_addr(IEEE802154_PANID, shortaddr, longaddr);
 
@@ -155,12 +140,36 @@ for(i = 0; i < UIP_DS6_ADDR_NB; i++) {
     NETSTACK_MAC = nullmac;
     NETSTACK_NETWORK= sicslowpan;
 #endif
-    netstack_init();
 
+    mac_shortaddr = (mac_longaddr[0] << 8) + mac_longaddr[1]; 
+
+    // set the random seed for MAC_addr[7]
+    NETSTACK_RADIO.init();
+    for (i = 0; i < 8; i++)
+        linkaddr.u8[i] = mac_longaddr[i];
     
-    printf(CONTIKI_VERSION_STRING "TCP started. ");
+    memcpy(&uip_lladdr.addr, &linkaddr.u8, sizeof(linkaddr_t));
+    linkaddr_set_node_addr(&linkaddr);
 
-      process_start(&tcpip_process, NULL);
+    // set short/long address using MAC address
+    { 
+        printf("short ADDR:%x ", mac_shortaddr);
+        printf("MAC %02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x\n",
+               mac_longaddr[7], mac_longaddr[6], mac_longaddr[5], mac_longaddr[4],
+               mac_longaddr[3], mac_longaddr[2], mac_longaddr[1], mac_longaddr[0]);
+    
+        //cc2520_set_pan_addr(IEEE802154_PANID, shortaddr, longaddr);
+      }
+
+
+    NETSTACK_RDC.init();
+    NETSTACK_LLSEC.init();
+    NETSTACK_MAC.init();
+    NETSTACK_NETWORK.init();
+    
+    printf(CONTIKI_VERSION_STRING "TCP started.. RSSI=%d\n", cc2520_rssi());
+
+    process_start(&tcpip_process, NULL);
 
         // test ping6
       //process_start(&ping6_process, NULL);
@@ -214,7 +223,7 @@ tcpip_ipv6_output: neighbor not in cache
 #endif
 #endif
 
-    mdelay(2000);
+    //mdelay(2000);
     // test IP
     tcp_test_init();
     udp_test_init();

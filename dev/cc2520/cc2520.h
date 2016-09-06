@@ -171,4 +171,14 @@ void cc2520_set_cca_threshold(int value);
     CC2520_SPI_DISABLE();                                               \
   } while (0)
 
+#define CC2520_GET_RANDOM(s)                                            \
+    do {                                                                  \
+      CC2520_SPI_ENABLE();                                                \
+      SPI1_ReadWriteByte(CC2520_INS_RANDOM);                                         \
+      SPI1_ReadWriteByte(0xff);                                         \
+      s = SPI1_ReadWriteByte(0xff);                                                      \
+      CC2520_SPI_DISABLE();                                               \
+    } while (0)
+
+
 #endif /* CC2520_H_ */

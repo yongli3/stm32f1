@@ -75,6 +75,7 @@
 #define LEDS_OFF(x)
 #endif
 
+extern uint8_t sys_seed;
 extern uint8_t mac_longaddr[8];
 extern uint16_t mac_shortaddr;
 
@@ -538,6 +539,7 @@ set_txpower(uint8_t power)
 int
 cc2520_init(void)
 {
+    unsigned char r;
   {
     int s = splhigh();
     cc2520_arch_init();		/* Initalize ports and SPI. */
@@ -616,6 +618,18 @@ cc2520_init(void)
   setreg(CC2520_FRMCTRL1,          1);
   /* Set FIFOP threshold to maximum .*/
   setreg(CC2520_FIFOPCTRL,   FIFOP_THR(0x7F));
+
+  CC2520_GET_RANDOM(r); 
+  printf("%d-%d-%d-%d\n", clock_time(), RTIMER_NOW(), cc2520_rssi(), r);
+
+  CC2520_GET_RANDOM(r);  
+  printf("%d-%d-%d-%d\n", clock_time(), RTIMER_NOW(), cc2520_rssi(), r);
+
+    sys_seed = r;
+    random_init(sys_seed);  
+
+    mac_longaddr[7] = random_rand() & 0xFF;
+    mac_longaddr[6] = random_rand() > 8;
 
   cc2520_set_pan_addr(IEEE802154_PANID, mac_shortaddr, mac_longaddr);
   cc2520_set_channel(RF_CHANNEL);
@@ -734,7 +748,7 @@ cc2520_prepare(const void *payload, unsigned short payload_len)
   uint8_t total_len;
   GET_LOCK();
 
-  PRINTF("#######cc2520_sending %d bytes\n", payload_len);
+  PRINTF("##cc2520_sending %d bytes\n", payload_len);
   /*int i;
   for(i = 0; i < payload_len;i++)
 	  printf("%x",((uint8_t *) payload)[i]);
@@ -907,7 +921,7 @@ PROCESS_THREAD(cc2520_process, ev, data)
   while(1) {
     PROCESS_YIELD_UNTIL(ev == PROCESS_EVENT_POLL);
 
-    PRINTF("*****cc2520_receiver ");
+    PRINTF("**cc2520_receiver");
 
     packetbuf_clear();
     packetbuf_set_attr(PACKETBUF_ATTR_TIMESTAMP, last_packet_timestamp);
@@ -941,7 +955,7 @@ cc2520_read(void *buf, unsigned short bufsize)
 
   getrxbyte(&len);
 
-  printf("rx-len=%d\n", len);  
+  //printf("rx-len=%d\n", len);  
   if(len > CC2520_MAX_PACKET_LEN) {
     /* Oops, we must be out of sync. */
     flushrx();

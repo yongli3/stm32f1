@@ -150,7 +150,7 @@ packetbuf_hdrreduce(int size)
 void
 packetbuf_set_datalen(uint16_t len)
 {
-  PRINTF("set_len: len %d\r\n", len);
+  //PRINTF("set_len: len %d\r\n", len);
   buflen = len;
 }
 /*---------------------------------------------------------------------------*/
