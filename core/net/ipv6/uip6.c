@@ -1513,6 +1513,13 @@ uip_process(uint8_t flag)
        connection is bound to a remote port. Finally, if the
        connection is bound to a remote IP address, the source IP
        address of the packet is checked. */
+    uip_debug_ipaddr_print(&UIP_IP_BUF->srcipaddr);
+    PRINTF("\n");
+    uip_debug_ipaddr_print(&uip_udp_conn->ripaddr);    
+    PRINTF(" lport=%d rport=%d\n", uip_udp_conn->lport, uip_udp_conn->rport);
+    PRINTF("dest=%d\n", UIP_UDP_BUF->destport);
+    PRINTF("src=%d\n", UIP_UDP_BUF->srcport);
+    
     if(uip_udp_conn->lport != 0 &&
        UIP_UDP_BUF->destport == uip_udp_conn->lport &&
        (uip_udp_conn->rport == 0 ||
@@ -1522,7 +1529,9 @@ uip_process(uint8_t flag)
       goto udp_found;
     }
   }
-  PRINTF("udp: no matching connection found\n");
+  PRINTF("udp: no matching connection found dest=%d src=%d\n", UIP_UDP_BUF->destport, UIP_UDP_BUF->srcport);
+  
+    
   UIP_STAT(++uip_stat.udp.drop);
 
   uip_icmp6_error_output(ICMP6_DST_UNREACH, ICMP6_DST_UNREACH_NOPORT, 0);

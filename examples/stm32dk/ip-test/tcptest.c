@@ -6,12 +6,12 @@
 static struct psock ps;
 static uint8_t buffer[100];
 
-PROCESS(example_psock_client_process, "Example protosocket client");
+PROCESS(tcp_client_process, "Example protosocket client");
 
-SHELL_COMMAND(iptest_command,
-	      "iptest",
-	      "iptest <host>: test an IP host",
-	      &example_psock_client_process);
+SHELL_COMMAND(tcptest_command,
+	      "tcptest",
+	      "tcptest ",
+	      &tcp_client_process);
 
 //AUTOSTART_PROCESSES(&example_psock_client_process);
 
@@ -35,7 +35,7 @@ handle_connection(struct psock *p)
   PSOCK_END(p);
 }
 /*---------------------------------------------------------------------------*/
-PROCESS_THREAD(example_psock_client_process, ev, data)
+PROCESS_THREAD(tcp_client_process, ev, data)
 {
   uip_ipaddr_t addr;
 
@@ -67,8 +67,8 @@ PROCESS_THREAD(example_psock_client_process, ev, data)
   PROCESS_END();
 }
 
-void ip_test_init()
+void tcp_test_init()
 {
-    shell_register_command(&iptest_command);
+    shell_register_command(&tcptest_command);
 }
 /*---------------------------------------------------------------------------*/

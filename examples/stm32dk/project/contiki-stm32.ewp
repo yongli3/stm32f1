@@ -4791,7 +4791,10 @@
     <group>
       <name>ip-test</name>
       <file>
-        <name>$PROJ_DIR$\..\ip-test\ip-test.c</name>
+        <name>$PROJ_DIR$\..\ip-test\tcptest.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\ip-test\udptest.c</name>
       </file>
     </group>
     <group>

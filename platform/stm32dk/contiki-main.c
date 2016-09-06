@@ -17,6 +17,9 @@
 #include "sys/autostart.h"
     
 #include "uart-debug.h"
+
+PROCESS_NAME(udp_client_process);
+
     
 extern int (*uart1_input_handler)(unsigned char c);
     
@@ -32,7 +35,6 @@ int main()
     
     platform_init();
     printf("Hello Contiki\n");
-
 
     //LED OFF
     GPIO_SetBits(GPIOA,GPIO_Pin_8);
@@ -214,7 +216,9 @@ tcpip_ipv6_output: neighbor not in cache
 
     mdelay(2000);
     // test IP
-    ip_test_init();
+    tcp_test_init();
+    udp_test_init();
+    //process_start(&udp_client_process, NULL);
 	//autostart_start(autostart_processes);
 
 	for (;;) 
